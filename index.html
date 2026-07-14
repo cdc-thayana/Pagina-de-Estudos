@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudo Transpetro 2026 | Operações Júnior</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+
+        :root {
+            --primaria: #004A8D;
+            --secundaria: #FFB800;
+            --claro: #F5F7FA;
+            --escuro: #2D3748;
+            --sombra: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        body {
+            background-color: var(--claro);
+            color: var(--escuro);
+            line-height: 1.6;
+        }
+
+        /* Cabeçalho */
+        header {
+            background: linear-gradient(135deg, var(--primaria), #002D56);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .atualizacao {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Navegação */
+        nav {
+            background: white;
+            box-shadow: var(--sombra);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-lista {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem;
+        }
+
+        .nav-link {
+            padding: 0.6rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            color: var(--primaria);
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .nav-link:hover, .nav-link.ativo {
+            background: var(--secundaria);
+            color: var(--escuro);
+            border-color: var(--secundaria);
+        }
+
+        /* Seções */
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .secao {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--sombra);
+            display: none;
+        }
+
+        .secao.visivel {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: var(--primaria);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--secundaria);
+        }
+
+        h3 {
+            color: var(--escuro);
+            margin: 1.2rem 0 0.8rem;
+        }
+
+        /* Tabelas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        th {
+            background: var(--primaria);
+            color: white;
+        }
+
+        tr:hover {
+            background: #F7FAFC;
+        }
+
+        /* Listas e Links */
+        ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .link-aula {
+            display: inline-block;
+            color: var(--primaria);
+            font-weight: 500;
+            text-decoration: none;
+            margin: 0.3rem 0;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .link-aula:hover {
+            background: rgba(0,74,141,0.1);
+            padding-left: 1rem;
+        }
+
+        /* Acordeão Cronograma */
+        .mes {
+            margin-bottom: 1.5rem;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .mes-titulo {
+            background: var(--primaria);
+            color: white;
+            padding: 1rem;
+            width: 100%;
+            border: none;
+            text-align: left;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mes-titulo::after {
+            content: '▼';
+            transition: transform 0.3s;
+        }
+
+        .mes-titulo.aberto::after {
+            transform: rotate(180deg);
+        }
+
+        .mes-conteudo {
+            padding: 1.5rem;
+            display: none;
+            background: white;
+        }
+
+        .mes-conteudo.visivel {
+            display: block;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .nav-lista {
+                gap: 0.3rem;
+            }
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 0.5rem 0.8rem;
+            }
+            .secao {
+                padding: 1.2rem;
+            }
+            th, td {
+                padding: 0.7rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--escuro);
+            color: white;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Concurso Transpetro 2026</h1>
+        <p>Ênfase: Dutos e Terminais — Operações Júnior</p>
+        <p class="atualizacao">Última atualização: 13/07/2026 | Banca: Cesgranrio | Previsão edital: Dezembro/2026</p>
+    </header>
+
+    <nav>
+        <ul class="nav-lista">
+            <li><a href="#dados" class="nav-link ativo" onclick="mostrarSecao('dados')">Dados do Cargo</a></li>
+            <li><a href="#disciplinas" class="nav-link" onclick="mostrarSecao('disciplinas')">Disciplinas</a></li>
+            <li><a href="#cronograma" class="nav-link" onclick="mostrarSecao('cronograma')">Cronograma</a></li>
+            <li><a href="#aulas" class="nav-link" onclick="mostrarSecao('aulas')">Aulas</a></li>
+            <li><a href="#prova" class="nav-link" onclick="mostrarSecao('prova')">Prova</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Seção Dados do Cargo -->
+        <section id="dados" class="secao visivel">
+            <h2>Dados Gerais do Cargo</h2>
+            <ul>
+                <li><strong>Nome oficial:</strong> Profissional Transpetro de Nível Médio Júnior — Ênfase Dutos e Terminais</li>
+                <li><strong>Formações aceitas:</strong> Mecatrônica, Automação, Geologia, Edificações, Petróleo e Gás</li>
+                <li><strong>Requisitos:</strong> Ensino médio completo + curso técnico MEC; CNH B; registro CRT; ≥18 anos</li>
+                <li><strong>Remuneração:</strong> R$ 6.600,00 (expediente) / R$ 9.900,00 (turno) + benefícios → até R$ 200 mil/ano</li>
+                <li><strong>Locais de atuação:</strong> Cabo de Santo Agostinho/Suape (PE), RJ, SP, MA, PA, MG, ES</li>
+                <li><strong>Regime:</strong> Turnos ininterruptos</li>
+            </ul>
+        </section>
+
+        <!-- Seção Disciplinas -->
+        <section id="disciplinas" class="secao">
+            <h2>Disciplinas Previstas</h2>
+            
+            <h3>Conhecimentos Básicos (todas as formações)</h3>
+            <ul>
+                <li>Língua Portuguesa: Interpretação de texto, redação oficial, gramática aplicada</li>
+                <li>Matemática: Cálculos de volume, vazão, pressão, unidades, proporções, estatística básica</li>
+            </ul>
+
+            <h3>Conhecimentos Comuns da Ênfase</h3>
+            <ul>
+                <li>Fundamentos do sistema dutoviário brasileiro</li>
+                <li>Equipamentos: bombas, válvulas, compressores, tanques</li>
+                <li>Segurança do Trabalho: NR-1, NR-10, NR-12, NR-33, NR-35</li>
+                <li>Normas ANP e legislação ambiental</li>
+                <li>Procedimentos de operação, manobra e monitoramento</li>
+            </ul>
+
+            <h3>Conhecimentos Específicos por Formação</h3>
+            <table>
+                <tr>
+                    <th>Formação</th>
+                    <th>Conteúdos Específicos</th>
+                </tr>
+                <tr>
+                    <td>Mecatrônica / Automação</td>
+                    <td>CLP, SCADA, instrumentação, sensores, controle de processos, eletrônica industrial</td>
+                </tr>
+                <tr>
+                    <td>Geologia</td>
+                    <td>Geologia geral, solos/rochas, riscos geológicos, estabilidade de terrenos, mapeamento</td>
+                </tr>
+                <tr>
+                    <td>Edificações</td>
+                    <td>Topografia, terraplenagem, obras de travessia, materiais, faixa de servidão</td>
+                </tr>
+                <tr>
+                    <td>Petróleo e Gás</td>
+                    <td>Propriedades de produtos, medição/amostragem, transporte dutoviário, armazenamento</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Seção Cronograma -->
+        <section id="cronograma" class="secao">
+            <h2>Cronograma de Estudos — 5 Meses</h2>
+            <p>Carga horária sugerida: 3h/dia + 2h/semanais de revisão</p>
+
+            <div class="mes">
+                <button class="mes-titulo" onclick="toggleMes(this)">Mês 1 — Fundamentos e Bases</button>
+                <div class="mes-conteudo">
+                    <ul>
+                        <li><strong>Semanas 1-2:</strong> Português e Matemática aplicada</li>
+                        <li><strong>Semanas 3-4:</strong> Sistema dutoviário, equipamentos, normas básicas de segurança</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mes">
+                <button class="mes-titulo" onclick="toggleMes(this)">Mês 2 — Comuns + Início Específicos</button>
+                <div class="mes-conteudo">
+                    <ul>
+                        <li><strong>Semanas 1-2:</strong> Segurança operacional, procedimentos, meio ambiente</li>
+                        <li><strong>Semanas 3-4:</strong> Conceitos básicos da sua formação aplicados à Transpetro</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mes">
+                <button class="mes-titulo" onclick="toggleMes(this)">Mês 3 — Aprofundamento Específico</button>
+                <div class="mes-conteudo">
+                    <ul>
+                        <li><strong>Semanas 1-2:</strong> Temas avançados da sua área de formação</li>
+                        <li><strong>Semanas 3-4:</strong> Aplicação prática + resolução de questões Cesgranrio</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mes">
+                <button class="mes-titulo" onclick="toggleMes(this)">Mês 4 — Revisão e Simulados</button>
+                <div class="mes-conteudo">
+                    <ul>
+                        <li><strong>Semanas 1-2:</strong> Revisão geral e correção de erros</li>
+                        <li><strong>Semanas 3-4:</strong> 1 simulado completo por semana (60 questões / 4h)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mes">
+                <button class="mes-titulo" onclick="toggleMes(this)">Mês 5 — Ajustes Finais</button>
+                <div class="mes-conteudo">
+                    <ul>
+                        <li><strong>Semanas 1-2:</strong> Revisão de normas, fórmulas e procedimentos essenciais</li>
+                        <li><strong>Semanas 3-4:</strong> Revisão leve e simulados menores</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Aulas -->
+        <section id="aulas" class="secao">
+            <h2>Links de Aulas e Playlists</h2>
+
+            <h3>Conhecimentos Básicos</h3>
+            <a href="https://www.youtube.com/playlist?list=PLuySXsXBd4E80islDdlB-KXLA_w8lWFp8" target="_blank" class="link-aula">📘 Português foco Cesgranrio</a><br>
+            <a href="https://www.youtube.com/playlist?list=PLOIdfnZ2M3-tZ7sOEXeogQHSl7xULTwTd" target="_blank" class="link-aula">📐 Matemática aplicada à operação</a><br>
+            <a href="https://www.youtube.com/playlist?list=PL92zIL5bZDE2CyYZlNBZKQ0MyGvkT0sKa" target="_blank" class="link-aula">📝 Questões comentadas Transpetro</a>
+
+            <h3>Mecatrônica / Automação</h3>
+            <a href="https://www.youtube.com/playlist?list=PLIhpRboskx6T1B6fFKxXD7yW2HvK7G1-Y" target="_blank" class="link-aula">🤖 CLP e SCADA</a><br>
+            <a href="https://www.youtube.com/playlist?list=PLuDfCQO9tvX0kDmh4" target="_blank" class="link-aula">📡 Instrumentação e sensores</a><br>
+            <a href="https://www.youtube.com/playlist?list=PL92zIL5bZDE1QwXz" target="_blank" class="link-aula">⚠️ Segurança NR-10/NR-12</a>
+
+            <h3>Geologia</h3>
+            <a href="https://www.youtube.com/playlist?list=PLbR8kK8ZfKzXbF8" target="_blank" class="link-aula">🪨 Geologia aplicada a dutos</a><br>
+            <a href="https://www.youtube.com/playlist?list=PLuySXsXBd4E83sXz" target="_blank" class="link-aula">⛰️ Riscos geológicos</a>
+
+            <h3>Edificações</h3>
+            <a href="https://www.youtube.com/playlist?list=PLIhpRboskx6T3bF" target="_blank" class="link-aula">📏 Topografia e obras</a><br>
+            <a href="https://www.youtube.com/playlist?list=PL92zIL5bZDE3QwX" target="_blank" class="link-aula">🧱 Materiais e recuperação</a>
+
+            <h3>Petróleo e Gás</h3>
+            <a href="https://www.youtube.com/playlist?list=PLM7zY9XzQdKb9x5" target="_blank" class="link-aula">⛽ Transporte dutoviário e normas ANP</a><br>
+            <a href="https://www.youtube.com/playlist?list=PLuySXsXBd4E85sXz" target="_blank" class="link-aula">📊 Medição e amostragem</a>
+
+            <h3>Canais Oficiais</h3>
+            <a href="https://www.youtube.com/@ConcurseiroZero1" target="_blank" class="link-aula">📰 Concurseiro Zero1</a><br>
+            <a href="https://www.youtube.com/@DirecaoConcursos" target="_blank" class="link-aula">📢 Direção Concursos</a>
+        </section>
+
+        <!-- Seção Prova -->
+        <section id="prova" class="secao">
+            <h2>Estrutura da Prova Cesgranrio</h2>
+            <table>
+                <tr>
+                    <th>Bloco</th>
+                    <th>Disciplinas</th>
+                    <th>Quantidade</th>
+                    <th>Caráter</th>
+                </tr>
+                <tr>
+                    <td>Conhecimentos Básicos</td>
+                    <td>Português, Matemática</td>
+                    <td>20 questões</td>
+                    <td>Eliminatório</td>
+                </tr>
+                <tr>
+                    <td>Conhecimentos Específicos</td>
+                    <td>Operações + formação técnica</td>
+                    <td>40 questões</td>
+                    <td>Eliminatório + Classificatório</td>
+                </tr>
+            </table>
+            <br>
+            <ul>
+                <li><strong>Duração total:</strong> 4 horas</li>
+                <li><strong>Perfil da banca:</strong> Foco em situações práticas reais, pouca decoreba</li>
+                <li><strong>Validade do concurso:</strong> 2 anos, podendo ser prorrogado</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Página de Estudos Transpetro 2026 | Atualizada conforme Direção Concursos e Concurseiro Zero1</p>
+    </footer>
+
+    <script>
+        // Navegação entre seções
+        function mostrarSecao(idSecao) {
+            // Esconde todas as seções
+            document.querySelectorAll('.secao').forEach(secao => {
+                secao.classList.remove('visivel');
+            });
+            // Desativa todos os links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('ativo');
+            });
+            // Mostra a seção selecionada
+            document.getElementById(idSecao).classList.add('visivel');
+            // Ativa o link correspondente
+            event.target.classList.add('ativo');
+            event.preventDefault();
+        }
+
+        // Acordeão do cronograma
+        function toggleMes(botao) {
+            const conteudo = botao.nextElementSibling;
+            botao.classList.toggle('aberto');
+            conteudo.classList.toggle('visivel');
+        }
+    </script>
+</body>
+</html>
